@@ -3,7 +3,7 @@
 export type Position = [x: number, y: number];
 export type Grid = {
   position: Position;
-  isOccupied: boolean;
+  //isOccupied: boolean;
 };
 export type Plateau = {
   startingGrid: Position;
