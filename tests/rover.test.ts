@@ -1,9 +1,5 @@
-import { Instruction, Direction, Rover } from "../src/rover_types";
-import {
-  setRoverPosition,
-  getCurrentRoverPosition,
-  moveRover,
-} from "../src/rover_types";
+import { Direction, Rover } from "../src/rover";
+import { setRoverPosition, moveRover } from "../src/rover";
 import { Plateau, Position } from "../src/plateau";
 /*
 describe("Set current position of rover", () => {
