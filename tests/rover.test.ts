@@ -4,7 +4,7 @@ import {
   getCurrentRoverPosition,
   moveRover,
 } from "../src/rover_types";
-import { Position } from "../src/plateau";
+import { Plateau, Position } from "../src/plateau";
 /*
 describe("Set current position of rover", () => {
   it("check if position is set", () => {
@@ -25,11 +25,17 @@ describe("Move Rover from instruction set", () => {
     const myRover = {} as Rover;
     const myPosition: Position = [1, 2];
     const myDir: Direction = "N";
-    const myInstruction = "LM";
+    const myInstruction = "LMLMLMLMM";
+    const myPlateau: Plateau = {
+      startingGrid: [0, 0],
+      maxGrid: [5, 5],
+      occupied: [],
+    };
+    myRover.plateau = myPlateau;
     //Act
     setRoverPosition(myPosition, myDir, myRover);
     const finalPos: string = moveRover(myInstruction, myRover);
     //Assert
-    expect(finalPos).toEqual("0 2 W");
+    expect(finalPos).toEqual("1 3 N");
   });
 });

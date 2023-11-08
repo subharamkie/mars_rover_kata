@@ -1,4 +1,4 @@
-import { Plateau, Grid, Position } from "./plateau";
+import { Plateau, Position, checkPlateauBoundary } from "./plateau";
 export const INSTRUCTIONS = ["L", "R", "M"] as const;
 export type Instruction = (typeof INSTRUCTIONS)[number];
 
@@ -18,8 +18,9 @@ const directionLookupTable: { [key: string]: Direction } = {
 };
 
 export type Rover = {
-  currentPosition: Grid;
+  currentPosition: Position;
   currentDirection: Direction;
+  plateau: Plateau;
 };
 //set rover position
 export function setRoverPosition(
@@ -27,12 +28,15 @@ export function setRoverPosition(
   direction: Direction,
   rover: Rover
 ): void {
-  rover.currentPosition = { position: position };
+  rover.currentPosition = position;
   rover.currentDirection = direction;
 }
+export function setRoverPlateau(plateau: Plateau, rover: Rover) {
+  rover.plateau = plateau;
+}
 export function getCurrentRoverPosition(myRover: Rover): Position {
-  console.log(myRover.currentPosition.position);
-  return myRover.currentPosition.position;
+  console.log(myRover.currentPosition[0], myRover.currentPosition[1]);
+  return myRover.currentPosition;
 }
 export function moveRover(instruction: string, rover: Rover): string {
   //need to parse input
@@ -40,15 +44,16 @@ export function moveRover(instruction: string, rover: Rover): string {
   const instructionArray = instruction.split("");
   let i: Instruction;
   instructionArray.forEach((element) => {
+    console.log("current instruction:" + element);
     if (isInstruction(element)) {
       i = element as Instruction;
       rover = executeInstruction(i, rover);
     }
   });
   console.log(
-    `${rover.currentPosition.position[0]} ${rover.currentPosition.position[1]} ${rover.currentDirection}`
+    `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`
   );
-  return `${rover.currentPosition.position[0]} ${rover.currentPosition.position[1]} ${rover.currentDirection}`;
+  return `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`;
 }
 function executeInstruction(instruction: Instruction, rover: Rover): Rover {
   switch (instruction) {
@@ -64,38 +69,36 @@ function executeInstruction(instruction: Instruction, rover: Rover): Rover {
       let newPos: Position;
       switch (rover.currentDirection) {
         case "E": //x+1,y
-          newPos = [
-            rover.currentPosition.position[0] + 1,
-            rover.currentPosition.position[1],
-          ];
-
-          rover.currentPosition.position = newPos;
+          newPos = [rover.currentPosition[0] + 1, rover.currentPosition[1]];
           break;
         case "W": //x-1,y
-          newPos = [
-            rover.currentPosition.position[0] - 1,
-            rover.currentPosition.position[1],
-          ];
+          newPos = [rover.currentPosition[0] - 1, rover.currentPosition[1]];
 
-          rover.currentPosition.position = newPos;
           break;
         case "N": //x,y+1
-          newPos = [
-            rover.currentPosition.position[0],
-            rover.currentPosition.position[1] + 1,
-          ];
+          newPos = [rover.currentPosition[0], rover.currentPosition[1] + 1];
 
-          rover.currentPosition.position = newPos;
           break;
         case "S": //x,y-1
-          newPos = [
-            rover.currentPosition.position[0],
-            rover.currentPosition.position[1] - 1,
-          ];
+          newPos = [rover.currentPosition[0], rover.currentPosition[1] - 1];
 
-          rover.currentPosition.position = newPos;
           break;
       }
+      //check if within boundary
+      if (
+        checkPlateauBoundary(
+          rover.currentPosition,
+          rover.plateau,
+          rover.currentDirection
+        )
+      ) {
+        console.log("new position set");
+        rover.currentPosition = newPos;
+        console.log(
+          `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`
+        );
+      }
+
       break;
   }
   return rover;
