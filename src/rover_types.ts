@@ -33,6 +33,7 @@ export function setRoverPosition(
 }
 export function setRoverPlateau(plateau: Plateau, rover: Rover) {
   rover.plateau = plateau;
+  rover.plateau.occupied.push(rover.currentPosition);
 }
 export function getCurrentRoverPosition(myRover: Rover): Position {
   console.log(myRover.currentPosition[0], myRover.currentPosition[1]);
@@ -48,6 +49,8 @@ export function moveRover(instruction: string, rover: Rover): string {
     if (isInstruction(element)) {
       i = element as Instruction;
       rover = executeInstruction(i, rover);
+    } else {
+      throw new Error("invalid instruction");
     }
   });
   console.log(
@@ -90,10 +93,20 @@ function executeInstruction(instruction: Instruction, rover: Rover): Rover {
           rover.currentPosition,
           rover.plateau,
           rover.currentDirection
-        )
+        ) &&
+        !rover.plateau.occupied.includes(newPos)
       ) {
         console.log("new position set");
+        //remove the currnt position from occupied list
+        rover.plateau.occupied.splice(
+          rover.plateau.occupied.findIndex(
+            (item) => item === rover.currentPosition
+          ),
+          1
+        );
         rover.currentPosition = newPos;
+        rover.plateau.occupied.push(newPos);
+        console.log("occupied arr:" + JSON.stringify(rover.plateau.occupied));
         console.log(
           `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`
         );
