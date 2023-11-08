@@ -1,6 +1,6 @@
 import { Direction, Rover } from "../src/rover";
 import { setRoverPosition, moveRover } from "../src/rover";
-import { Plateau, Position } from "../src/plateau";
+import { Plateau, Position, setPlateauMaxBoundary } from "../src/plateau";
 /*
 describe("Set current position of rover", () => {
   it("check if position is set", () => {
@@ -22,6 +22,7 @@ describe("Move Rover from instruction set", () => {
     const myPosition: Position = [3, 3];
     const myDir: Direction = "E";
     const myInstruction = "MMRMMRMRRM";
+    //const myPlateau = setPlateauMaxBoundary([5, 5]);
     const myPlateau: Plateau = {
       startingGrid: [0, 0],
       maxGrid: [5, 5],

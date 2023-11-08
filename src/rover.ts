@@ -14,6 +14,9 @@ export const directionLookupTable: { [key: string]: Direction } = {
   WR: "N",
   WL: "S",
 };
+export function isDirection(input: string): input is Direction {
+  return DIRECTIONS.includes(input as Direction);
+}
 
 export type Rover = {
   currentPosition: PlateauObj.Position;
@@ -34,7 +37,6 @@ export function setRoverPlateau(plateau: PlateauObj.Plateau, rover: Rover) {
   rover.plateau.occupied.push(rover.currentPosition);
 }
 export function getCurrentRoverPosition(myRover: Rover): PlateauObj.Position {
-  console.log(myRover.currentPosition[0], myRover.currentPosition[1]);
   return myRover.currentPosition;
 }
 export function moveRover(instruction: string, rover: Rover): string {
@@ -43,7 +45,6 @@ export function moveRover(instruction: string, rover: Rover): string {
   const instructionArray = instruction.split("");
   let i: InstructionObj.Instruction;
   instructionArray.forEach((element) => {
-    console.log("current instruction:" + element);
     if (InstructionObj.isInstruction(element)) {
       i = element as InstructionObj.Instruction;
       rover = InstructionObj.executeInstruction(i, rover);
@@ -51,8 +52,5 @@ export function moveRover(instruction: string, rover: Rover): string {
       throw new Error("invalid instruction");
     }
   });
-  console.log(
-    `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`
-  );
   return `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`;
 }

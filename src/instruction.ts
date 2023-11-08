@@ -48,7 +48,6 @@ export function executeInstruction(
         ) &&
         !PlateauObj.isOccupied(rover.plateau, newPos)
       ) {
-        console.log("new position set");
         //remove the currnt position from occupied list
         PlateauObj.deletePlateauOccupiedPosition(
           rover.plateau,
@@ -56,9 +55,6 @@ export function executeInstruction(
         );
         rover.currentPosition = newPos;
         PlateauObj.addPlateauOccupiedPosition(rover.plateau, newPos);
-        console.log(
-          `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`
-        );
       }
 
       break;

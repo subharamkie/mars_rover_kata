@@ -9,9 +9,13 @@ export type Plateau = {
   maxGrid: Position;
   occupied: Position[];
 };
-export function setPlateauMaxBoundary(coordinates: Position, plateau: Plateau) {
-  plateau.maxGrid = coordinates;
-  plateau.startingGrid = [0, 0]; //set to 0,0 by default
+export function setPlateauMaxBoundary(coordinates: Position): Plateau {
+  const myPlateau: Plateau = {
+    maxGrid: coordinates,
+    startingGrid: [0, 0], //set to 0,0 by default
+    occupied: [],
+  };
+  return myPlateau;
 }
 
 export function addPlateauOccupiedPosition(
@@ -52,7 +56,6 @@ export function checkPlateauBoundary(
       return position[0] < plateau.maxGrid[0];
     case "W":
       //check for x boundary
-      console.log(position[0], ",starting: " + plateau.startingGrid[0]);
       return position[0] > plateau.startingGrid[0];
     default:
       return false;
