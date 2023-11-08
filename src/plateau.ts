@@ -1,6 +1,6 @@
 //plateau has a starting tuple (0,0 by default)
 
-import { Direction } from "../src/rover_types";
+import { Direction } from "./rover";
 
 //plateau has a max tuple (maxX,maxY) based on user input
 export type Position = [x: number, y: number];
@@ -12,15 +12,29 @@ export type Plateau = {
 export function setPlateauMaxBoundary(coordinates: Position, plateau: Plateau) {
   plateau.maxGrid = coordinates;
   plateau.startingGrid = [0, 0]; //set to 0,0 by default
-  console.log(plateau.maxGrid);
 }
 
-export function updatePlateauOccupiedPosition(
+export function addPlateauOccupiedPosition(
   plateau: Plateau,
   position: Position
 ) {
   plateau.occupied.push(position);
 }
+
+export function deletePlateauOccupiedPosition(
+  plateau: Plateau,
+  position: Position
+) {
+  plateau.occupied.splice(
+    plateau.occupied.findIndex((item) => item === position),
+    1
+  );
+}
+
+export function isOccupied(plateau: Plateau, position: Position): boolean {
+  return plateau.occupied.includes(position);
+}
+
 export function checkPlateauBoundary(
   position: Position,
   plateau: Plateau,
