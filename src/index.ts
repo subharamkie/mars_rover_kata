@@ -5,8 +5,9 @@ import {
   checkPlateauBoundary,
   setPlateauMaxBoundary,
 } from "./plateau";
-import { Rover, Direction } from "./rover";
+import { Rover } from "./rover";
 import * as RoverObj from "./rover";
+import { isDirection } from "./types";
 
 let roverPlateau: Plateau = {} as Plateau;
 const myRover: Rover = {} as Rover;
@@ -61,7 +62,7 @@ function parseRoverInput(input: string): void {
     //check if position is within boundary and direction is valid
     if (
       position &&
-      RoverObj.isDirection(inputSplit[2]) &&
+      isDirection(inputSplit[2]) &&
       checkPlateauBoundary(position, roverPlateau, inputSplit[2])
     ) {
       RoverObj.setRoverPosition(position, inputSplit[2], myRover);

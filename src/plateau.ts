@@ -1,6 +1,6 @@
 //plateau has a starting tuple (0,0 by default)
 
-import { Direction } from "./rover";
+import { Direction } from "./types";
 
 //plateau has a max tuple (maxX,maxY) based on user input
 export type Position = [x: number, y: number];

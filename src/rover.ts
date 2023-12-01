@@ -1,22 +1,7 @@
 import * as PlateauObj from "./plateau";
 import * as InstructionObj from "./instruction";
-export const DIRECTIONS = ["N", "S", "E", "W"] as const;
-export type Direction = (typeof DIRECTIONS)[number];
-
+import { Instruction, Direction, isDirection } from "./types";
 //used to get the value to know where to move for L|R
-export const directionLookupTable: { [key: string]: Direction } = {
-  NL: "W", // Current dir:N,Instruction:L, resulting dir:W
-  NR: "E",
-  SL: "E",
-  SR: "W",
-  ER: "S",
-  EL: "N",
-  WR: "N",
-  WL: "S",
-};
-export function isDirection(input: string): input is Direction {
-  return DIRECTIONS.includes(input as Direction);
-}
 
 export type Rover = {
   currentPosition: PlateauObj.Position;
@@ -43,10 +28,10 @@ export function moveRover(instruction: string, rover: Rover): string {
   //need to parse input
   //split the string into an array
   const instructionArray = instruction.split("");
-  let i: InstructionObj.Instruction;
+  let i: Instruction;
   instructionArray.forEach((element) => {
     if (InstructionObj.isInstruction(element)) {
-      i = element as InstructionObj.Instruction;
+      i = element as Instruction;
       rover = InstructionObj.executeInstruction(i, rover);
     } else {
       throw new Error("invalid instruction");

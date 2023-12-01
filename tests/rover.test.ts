@@ -1,4 +1,5 @@
-import { Direction, Rover } from "../src/rover";
+import { Rover } from "../src/rover";
+import { Direction } from "../src/types";
 import { setRoverPosition, moveRover } from "../src/rover";
 import { Plateau, Position, setPlateauMaxBoundary } from "../src/plateau";
 /*

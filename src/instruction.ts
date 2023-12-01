@@ -1,8 +1,6 @@
 import * as PlateauObj from "./plateau";
 import * as RoverObj from "./rover";
-export const INSTRUCTIONS = ["L", "R", "M"] as const;
-export type Instruction = (typeof INSTRUCTIONS)[number];
-
+import { INSTRUCTIONS, Instruction, directionLookupTable } from "./types";
 export function isInstruction(input: string): input is Instruction {
   return INSTRUCTIONS.includes(input as Instruction);
 }
@@ -16,7 +14,7 @@ export function executeInstruction(
     case "L":
       //change direction
       rover.currentDirection =
-        RoverObj.directionLookupTable[rover.currentDirection + instruction];
+        directionLookupTable[rover.currentDirection + instruction];
       break;
     case "M":
       //move one square in the current direction
