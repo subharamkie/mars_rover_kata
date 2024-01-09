@@ -3,7 +3,7 @@ import {
   Plateau,
   Position,
   checkPlateauBoundary,
-  setPlateauMaxBoundary,
+  createEmptyPlateau,
 } from "./plateau";
 import { Rover } from "./rover";
 import * as RoverObj from "./rover";
@@ -30,7 +30,7 @@ function startMission(input: string): void {
     if (numbers.length === 2) {
       const pos = checkInputIsNumber(input);
       if (pos) {
-        roverPlateau = setPlateauMaxBoundary(pos);
+        roverPlateau = createEmptyPlateau(pos);
         if (roverPlateau) {
           print("--------------------------");
           print("******* Your plateau is set *******");

@@ -9,7 +9,8 @@ export type Plateau = {
   topRightCorner: Position;
   occupied: Position[];
 };
-export function setPlateauMaxBoundary(coordinates: Position): Plateau {
+
+export function createEmptyPlateau(coordinates: Position): Plateau {
   const myPlateau: Plateau = {
     topRightCorner: coordinates,
     bottomLeftCorner: [0, 0], //set to 0,0 by default
@@ -60,4 +61,13 @@ export function checkPlateauBoundary(
     default:
       return false;
   }
+}
+
+export function isPositionInPlateau(position: Position, plateau: Plateau) {
+  return (
+    position[0] >= plateau.bottomLeftCorner[0] &&
+    position[0] <= plateau.topRightCorner[0] &&
+    position[1] >= plateau.bottomLeftCorner[1] &&
+    position[1] <= plateau.topRightCorner[1]
+  );
 }

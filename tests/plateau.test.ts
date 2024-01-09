@@ -1,12 +1,11 @@
-import { setPlateauMaxBoundary } from "../src/plateau";
+import { createEmptyPlateau } from "../src/plateau";
 import { Plateau } from "../src/plateau";
-describe("Set the bounding box for the plateau", () => {
-  it("Set boundary for plateau", () => {
-    const test: Plateau = { bottomLeftCorner: [0, 0], topRightCorner: [0, 0] };
-    const returnObj: Plateau = {
-      bottomLeftCorner: [0, 0],
-      topRightCorner: [5, 5],
-    };
-    expect(setPlateauMaxBoundary([5, 5], test)).toMatchObject(returnObj);
+
+describe("Plateau tests", () => {
+  it("Check if plateau is created with given boundary", () => {
+    const myPlateau: Plateau = createEmptyPlateau([5, 5]);
+    expect(myPlateau.bottomLeftCorner).toEqual([0, 0]);
+    expect(myPlateau.topRightCorner).toEqual([5, 5]);
+    expect(myPlateau.occupied).toEqual([]);
   });
 });
