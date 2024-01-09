@@ -5,14 +5,14 @@ import { Direction } from "./types";
 //plateau has a max tuple (maxX,maxY) based on user input
 export type Position = [x: number, y: number];
 export type Plateau = {
-  startingGrid: Position;
-  maxGrid: Position;
+  bottomLeftCorner: Position;
+  topRightCorner: Position;
   occupied: Position[];
 };
 export function setPlateauMaxBoundary(coordinates: Position): Plateau {
   const myPlateau: Plateau = {
-    maxGrid: coordinates,
-    startingGrid: [0, 0], //set to 0,0 by default
+    topRightCorner: coordinates,
+    bottomLeftCorner: [0, 0], //set to 0,0 by default
     occupied: [],
   };
   return myPlateau;
@@ -47,16 +47,16 @@ export function checkPlateauBoundary(
   switch (currentDirection) {
     case "N":
       //check for y boundary
-      return position[1] < plateau.maxGrid[1];
+      return position[1] < plateau.topRightCorner[1];
     case "S":
       //check for y boundary
-      return position[1] > plateau.startingGrid[1];
+      return position[1] > plateau.bottomLeftCorner[1];
     case "E":
       //check for x boundary
-      return position[0] < plateau.maxGrid[0];
+      return position[0] < plateau.topRightCorner[0];
     case "W":
       //check for x boundary
-      return position[0] > plateau.startingGrid[0];
+      return position[0] > plateau.bottomLeftCorner[0];
     default:
       return false;
   }

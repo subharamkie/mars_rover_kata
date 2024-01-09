@@ -25,8 +25,8 @@ describe("Move Rover from instruction set", () => {
     const myInstruction = "MMRMMRMRRM";
     //const myPlateau = setPlateauMaxBoundary([5, 5]);
     const myPlateau: Plateau = {
-      startingGrid: [0, 0],
-      maxGrid: [5, 5],
+      bottomLeftCorner: [0, 0],
+      topRightCorner: [5, 5],
       occupied: [],
     };
     myRover.plateau = myPlateau;
