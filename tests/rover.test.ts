@@ -1,7 +1,7 @@
 import { Rover } from "../src/rover";
-import { Direction } from "../src/types";
+import { Direction, Plateau, Position } from "../src/types";
 import { setRoverPosition, moveRover } from "../src/rover";
-import { Plateau, Position, createEmptyPlateau } from "../src/plateau";
+import { createEmptyPlateau } from "../src/plateau";
 /*
 describe("Set current position of rover", () => {
   it("check if position is set", () => {

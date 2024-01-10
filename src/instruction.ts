@@ -1,6 +1,11 @@
 import * as PlateauObj from "./plateau";
 import * as RoverObj from "./rover";
-import { INSTRUCTIONS, Instruction, directionLookupTable } from "./types";
+import {
+  INSTRUCTIONS,
+  Instruction,
+  directionLookupTable,
+  Position,
+} from "./types";
 export function isInstruction(input: string): input is Instruction {
   return INSTRUCTIONS.includes(input as Instruction);
 }
@@ -19,7 +24,7 @@ export function executeInstruction(
     case "M":
       //move one square in the current direction
       //add check for boundary
-      let newPos: PlateauObj.Position;
+      let newPos: Position;
       switch (rover.currentDirection) {
         case "E": //x+1,y
           newPos = [rover.currentPosition[0] + 1, rover.currentPosition[1]];

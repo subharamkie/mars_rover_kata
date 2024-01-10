@@ -1,14 +1,8 @@
 //plateau has a starting tuple (0,0 by default)
 
-import { Direction } from "./types";
+import { Direction, Plateau, Position } from "./types";
 
 //plateau has a max tuple (maxX,maxY) based on user input
-export type Position = [x: number, y: number];
-export type Plateau = {
-  bottomLeftCorner: Position;
-  topRightCorner: Position;
-  occupied: Position[];
-};
 
 export function createEmptyPlateau(coordinates: Position): Plateau {
   const myPlateau: Plateau = {
@@ -23,17 +17,27 @@ export function addPlateauOccupiedPosition(
   plateau: Plateau,
   position: Position
 ) {
-  plateau.occupied.push(position);
+  if (isPositionInPlateau(position, plateau)) {
+    plateau.occupied.push(position);
+    return plateau;
+  } else {
+    throw new Error("Invalid position");
+  }
 }
 
 export function deletePlateauOccupiedPosition(
   plateau: Plateau,
   position: Position
 ) {
-  plateau.occupied.splice(
-    plateau.occupied.findIndex((item) => item === position),
-    1
+  const index = plateau.occupied.findIndex((item) =>
+    item.every((value, i) => value === position[i])
   );
+
+  if (index !== -1) {
+    plateau.occupied.splice(index, 1);
+    return plateau;
+  }
+  throw new Error("Position is empty");
 }
 
 export function isOccupied(plateau: Plateau, position: Position): boolean {

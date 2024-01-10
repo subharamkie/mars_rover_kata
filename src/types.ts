@@ -17,3 +17,9 @@ export const directionLookupTable: { [key: string]: Direction } = {
 export function isDirection(input: string): input is Direction {
   return DIRECTIONS.includes(input as Direction);
 }
+export type Position = [x: number, y: number];
+export type Plateau = {
+  bottomLeftCorner: Position;
+  topRightCorner: Position;
+  occupied: Position[];
+};
