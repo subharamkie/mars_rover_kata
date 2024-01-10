@@ -6,14 +6,18 @@ import {
   isDirection,
   Plateau,
   Position,
+  Rover,
 } from "./types";
 //used to get the value to know where to move for L|R
 
-export type Rover = {
-  currentPosition: Position;
-  currentDirection: Direction;
-  plateau: Plateau;
-};
+export function createEmptyRover(): Rover {
+  const myRover = {
+    currentPosition: [0, 0] as Position,
+    currentDirection: "" as Direction,
+    plateau: {} as Plateau,
+  };
+  return myRover;
+}
 //set rover position
 export function setRoverPosition(
   position: Position,

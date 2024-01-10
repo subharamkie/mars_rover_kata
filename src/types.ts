@@ -23,3 +23,9 @@ export type Plateau = {
   topRightCorner: Position;
   occupied: Position[];
 };
+
+export type Rover = {
+  currentPosition: Position;
+  currentDirection: Direction;
+  plateau: Plateau;
+};

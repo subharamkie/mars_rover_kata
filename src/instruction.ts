@@ -5,15 +5,17 @@ import {
   Instruction,
   directionLookupTable,
   Position,
+  Rover,
 } from "./types";
+
 export function isInstruction(input: string): input is Instruction {
   return INSTRUCTIONS.includes(input as Instruction);
 }
 
 export function executeInstruction(
   instruction: Instruction,
-  rover: RoverObj.Rover
-): RoverObj.Rover {
+  rover: Rover
+): Rover {
   switch (instruction) {
     case "R":
     case "L":
