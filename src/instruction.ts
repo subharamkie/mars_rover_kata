@@ -4,7 +4,6 @@ import {
   INSTRUCTIONS,
   Instruction,
   directionLookupTable,
-  Position,
   Rover,
 } from "./types";
 
@@ -24,33 +23,13 @@ export function executeInstruction(
         directionLookupTable[rover.currentDirection + instruction];
       break;
     case "M":
-      //move one square in the current direction
-      //add check for boundary
-      let newPos: Position;
-      switch (rover.currentDirection) {
-        case "E": //x+1,y
-          newPos = [rover.currentPosition[0] + 1, rover.currentPosition[1]];
-          break;
-        case "W": //x-1,y
-          newPos = [rover.currentPosition[0] - 1, rover.currentPosition[1]];
-
-          break;
-        case "N": //x,y+1
-          newPos = [rover.currentPosition[0], rover.currentPosition[1] + 1];
-
-          break;
-        case "S": //x,y-1
-          newPos = [rover.currentPosition[0], rover.currentPosition[1] - 1];
-
-          break;
-      }
+      let newPos = RoverObj.getNewPosition(
+        rover.currentPosition,
+        rover.currentDirection
+      );
       //check if within boundary
       if (
-        PlateauObj.checkPlateauBoundary(
-          rover.currentPosition,
-          rover.plateau,
-          rover.currentDirection
-        ) &&
+        PlateauObj.isPositionInPlateau(newPos, rover.plateau) &&
         !PlateauObj.isOccupied(rover.plateau, newPos)
       ) {
         //remove the currnt position from occupied list
@@ -61,7 +40,9 @@ export function executeInstruction(
         rover.currentPosition = newPos;
         PlateauObj.addPlateauOccupiedPosition(rover.plateau, newPos);
       }
-
+      break;
+    default:
+      throw new Error("Invalid instruction");
       break;
   }
   return rover;

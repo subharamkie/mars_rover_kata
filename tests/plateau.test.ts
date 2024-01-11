@@ -4,6 +4,7 @@ import {
   addPlateauOccupiedPosition,
 } from "../src/plateau";
 import { Plateau, Position } from "../src/types";
+import { expect, describe, it } from "@jest/globals";
 
 describe("Plateau tests", () => {
   it("Check if plateau is created with given boundary", () => {

@@ -1,66 +1,56 @@
 import {
   createEmptyRover,
   getCurrentRoverPosition,
+  getNewPosition,
   setRoverPlateau,
 } from "../src/rover";
 import { Direction, Plateau, Position, Rover } from "../src/types";
 import { setRoverPositionOnPlateau, moveRover } from "../src/rover";
 import { createEmptyPlateau } from "../src/plateau";
-import { it } from "node:test";
-/*
-describe("Set current position of rover", () => {
-  it("check if position is set", () => {
-    //Arrange
-    const myRover = {} as Rover;
-    const myPosition: Position = [1, 2];
-    const myDir: Direction = "N";
-    //Act
-    setRoverPositionOnPlateau(myPosition, myDir, myRover);
-    //Assert
-    expect(getCurrentRoverPosition(myRover)).toEqual(myPosition);
-  });
-});
-*/
+import { expect, beforeEach, describe, it } from "@jest/globals";
 
 describe("Rover functions test", () => {
   it("create empty rover having position as [0,0] & direction empty", () => {
     const myRover: Rover = createEmptyRover();
     expect(myRover.currentDirection).toEqual("");
   });
-  it("set rover position", () => {
+  it("set rover position on plateau", () => {
     const myRover: Rover = createEmptyRover();
-    setRoverPositionOnPlateau([2, 2] as Position, "N", myRover);
-    expect(myRover.currentDirection).toEqual("N");
-    expect(myRover.currentPosition).toEqual([2, 2]);
+    expect(() =>
+      setRoverPositionOnPlateau([2, 2] as Position, "N", myRover)
+    ).toThrow(Error);
   });
 
-  it("set rover plateau test", () => {
+  it("set rover's plateau test", () => {
     const myRover = createEmptyRover();
     const newPlateau = createEmptyPlateau([4, 4]);
     setRoverPlateau(newPlateau, myRover);
     expect(myRover.plateau).toEqual(newPlateau);
   });
-  it("get currect position", () => {
+  it("get Rover's current position", () => {
     const myRover: Rover = createEmptyRover();
+    const newPlateau = createEmptyPlateau([4, 4]);
+    setRoverPlateau(newPlateau, myRover);
     setRoverPositionOnPlateau([2, 2] as Position, "N", myRover);
     expect(getCurrentRoverPosition(myRover)).toEqual([2, 2]);
   });
-});
-describe("Move Rover from instruction set", () => {
+
+  it("Check if getNewPosition returns correct value", () => {
+    const myRover: Rover = createEmptyRover();
+    const newPlateau = createEmptyPlateau([4, 4]);
+    setRoverPlateau(newPlateau, myRover);
+    setRoverPositionOnPlateau([2, 2] as Position, "N", myRover);
+    expect(
+      getNewPosition(myRover.currentPosition, myRover.currentDirection)
+    ).toEqual([2, 3]);
+  });
   it("Find the final position of Rover", () => {
     //Arrange
-    const myRover = {} as Rover;
-    const myPosition: Position = [3, 3];
-    const myDir: Direction = "E";
+    const myRover: Rover = createEmptyRover();
+    const newPlateau = createEmptyPlateau([5, 5]);
+    setRoverPlateau(newPlateau, myRover);
+    setRoverPositionOnPlateau([3, 3] as Position, "E", myRover);
     const myInstruction = "MMRMMRMRRM";
-    //const myPlateau = createEmptyPlateau([5, 5]);
-    const myPlateau: Plateau = {
-      bottomLeftCorner: [0, 0],
-      topRightCorner: [5, 5],
-      occupied: [],
-    };
-    setRoverPlateau(myPlateau, myRover);
-    setRoverPositionOnPlateau(myPosition, myDir, myRover);
 
     //Act
     const finalPos: string = moveRover(myInstruction, myRover);

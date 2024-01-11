@@ -53,3 +53,28 @@ export function moveRover(instruction: string, rover: Rover): string {
   });
   return `${rover.currentPosition[0]} ${rover.currentPosition[1]} ${rover.currentDirection}`;
 }
+
+export function getNewPosition(
+  currentPosition: Position,
+  currentDirection: Direction
+) {
+  let newPos: Position;
+  switch (currentDirection) {
+    case "E": //x+1,y
+      newPos = [currentPosition[0] + 1, currentPosition[1]];
+      break;
+    case "W": //x-1,y
+      newPos = [currentPosition[0] - 1, currentPosition[1]];
+
+      break;
+    case "N": //x,y+1
+      newPos = [currentPosition[0], currentPosition[1] + 1];
+
+      break;
+    case "S": //x,y-1
+      newPos = [currentPosition[0], currentPosition[1] - 1];
+
+      break;
+  }
+  return newPos;
+}
