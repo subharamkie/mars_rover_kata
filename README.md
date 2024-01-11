@@ -17,6 +17,10 @@ Changing direction uses a lookuptable which currently supports only 4 directions
 The starting position of a plateau is always set to [0,0].
 If the rover is at any border of the plateau, it will not move beyond the boundary.
 
+## Installation
+
+To install, you can clone the repo and use npm install to install the necessary pacakges, then run npm start
+
 ## To run the files
 
 The program can be executed using
