@@ -33,22 +33,22 @@ describe("executeInstruction function", () => {
     expect(result.plateau.occupied).toEqual([[0, 1]]);
   });
 
-  it("should handle moving outside plateau boundaries for M instruction", () => {
+  it("should handle moving outside plateau boundaries for M instruction by not moving the rover when position is outside plateau", () => {
+    RoverObj.setRoverPositionOnPlateau([0, 0], "W", rover);
     const result = executeInstruction("M", rover);
-    expect(result).toEqual(rover);
+    expect(result.currentPosition).toEqual([0, 0]);
   });
 
-  it("should handle moving to an occupied position for M instruction", () => {
-    rover.plateau.occupied = [...rover.plateau.occupied, [0, 1]];
+  it("should handle moving to an occupied position for M instruction,where rover stays put", () => {
+    rover.plateau.occupied.push([0, 1]);
     const result = executeInstruction("M", rover);
-
-    expect(result).toEqual(rover);
+    expect(result.currentPosition).toEqual([0, 0]);
   });
 
-  it("Is istruction with correct input", () => {
+  it("Is instruction with correct input", () => {
     expect(isInstruction("L")).toEqual(true);
   });
-  it("Is istruction with correct input", () => {
+  it("Is instruction with correct input", () => {
     expect(isInstruction("D")).toEqual(false);
   });
 });

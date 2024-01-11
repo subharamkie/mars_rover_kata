@@ -14,7 +14,6 @@ export function createEmptyPlateau(coordinates: Position): Plateau {
     };
     return myPlateau;
   } else {
-    console.log("here");
     throw new Error("Plateau coordinates have to be positive");
   }
 }
@@ -47,30 +46,9 @@ export function deletePlateauOccupiedPosition(
 }
 
 export function isOccupied(plateau: Plateau, position: Position): boolean {
-  return plateau.occupied.includes(position);
-}
-
-export function checkPlateauBoundary(
-  position: Position,
-  plateau: Plateau,
-  currentDirection: Direction
-): boolean {
-  switch (currentDirection) {
-    case "N":
-      //check for y boundary
-      return position[1] < plateau.topRightCorner[1];
-    case "S":
-      //check for y boundary
-      return position[1] > plateau.bottomLeftCorner[1];
-    case "E":
-      //check for x boundary
-      return position[0] < plateau.topRightCorner[0];
-    case "W":
-      //check for x boundary
-      return position[0] > plateau.bottomLeftCorner[0];
-    default:
-      return false;
-  }
+  return plateau.occupied.some((item: Position) => {
+    return item[0] === position[0] && item[1] === position[1];
+  });
 }
 
 export function isPositionInPlateau(position: Position, plateau: Plateau) {
