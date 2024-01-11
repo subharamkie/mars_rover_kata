@@ -1,13 +1,7 @@
 import { clear, print, askQuestion } from "./ui/console";
-import {
-  Plateau,
-  Position,
-  checkPlateauBoundary,
-  createEmptyPlateau,
-} from "./plateau";
-import { Rover } from "./rover";
+import { createEmptyPlateau, isPositionInPlateau } from "./plateau";
 import * as RoverObj from "./rover";
-import { isDirection } from "./types";
+import { isDirection, Rover, Plateau, Position } from "./types";
 
 let roverPlateau: Plateau = {} as Plateau;
 const myRover: Rover = {} as Rover;
@@ -63,10 +57,10 @@ function parseRoverInput(input: string): void {
     if (
       position &&
       isDirection(inputSplit[2]) &&
-      checkPlateauBoundary(position, roverPlateau, inputSplit[2])
+      isPositionInPlateau(position, roverPlateau)
     ) {
-      RoverObj.setRoverPositionOnPlateau(position, inputSplit[2], myRover);
       RoverObj.setRoverPlateau(roverPlateau, myRover);
+      RoverObj.setRoverPositionOnPlateau(position, inputSplit[2], myRover);
 
       askQuestion(
         `What's the instruction for the Rover? Enter in form of "LMR..." `,
