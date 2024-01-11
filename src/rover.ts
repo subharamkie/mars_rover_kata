@@ -19,17 +19,21 @@ export function createEmptyRover(): Rover {
   return myRover;
 }
 //set rover position
-export function setRoverPosition(
+export function setRoverPositionOnPlateau(
   position: Position,
   direction: Direction,
   rover: Rover
 ): void {
-  rover.currentPosition = position;
-  rover.currentDirection = direction;
+  if (PlateauObj.isPositionInPlateau(position, rover.plateau)) {
+    rover.currentPosition = position;
+    rover.currentDirection = direction;
+    rover.plateau.occupied.push(rover.currentPosition);
+  } else {
+    throw new Error("Position not in plateau");
+  }
 }
 export function setRoverPlateau(plateau: Plateau, rover: Rover) {
   rover.plateau = plateau;
-  rover.plateau.occupied.push(rover.currentPosition);
 }
 export function getCurrentRoverPosition(myRover: Rover): Position {
   return myRover.currentPosition;

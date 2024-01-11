@@ -12,6 +12,19 @@ describe("Plateau tests", () => {
     expect(myPlateau.topRightCorner).toEqual([5, 5]);
     expect(myPlateau.occupied).toEqual([]);
   });
+  it("Check if plateau can't be created with 0 area", () => {
+    expect(() => createEmptyPlateau([0, 0])).toThrow(Error);
+  });
+  it("Check if plateau top x coord is not negative,i.e top right corner is not to the left of bottom left corner ", () => {
+    expect(() => createEmptyPlateau([-1, 0])).toThrow(
+      "Plateau coordinates have to be positive"
+    );
+  });
+  it("Check if plateau top y corrd is not negative,i,e top right corner is not below the bottom left ", () => {
+    expect(() => createEmptyPlateau([4, -1])).toThrow(
+      "Plateau coordinates have to be positive"
+    );
+  });
 
   it("Check if plateau validates removal of occupied position correctly", () => {
     const myPlateau: Plateau = createEmptyPlateau([5, 5]);

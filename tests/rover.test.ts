@@ -4,7 +4,7 @@ import {
   setRoverPlateau,
 } from "../src/rover";
 import { Direction, Plateau, Position, Rover } from "../src/types";
-import { setRoverPosition, moveRover } from "../src/rover";
+import { setRoverPositionOnPlateau, moveRover } from "../src/rover";
 import { createEmptyPlateau } from "../src/plateau";
 import { it } from "node:test";
 /*
@@ -15,7 +15,7 @@ describe("Set current position of rover", () => {
     const myPosition: Position = [1, 2];
     const myDir: Direction = "N";
     //Act
-    setRoverPosition(myPosition, myDir, myRover);
+    setRoverPositionOnPlateau(myPosition, myDir, myRover);
     //Assert
     expect(getCurrentRoverPosition(myRover)).toEqual(myPosition);
   });
@@ -29,7 +29,7 @@ describe("Rover functions test", () => {
   });
   it("set rover position", () => {
     const myRover: Rover = createEmptyRover();
-    setRoverPosition([2, 2] as Position, "N", myRover);
+    setRoverPositionOnPlateau([2, 2] as Position, "N", myRover);
     expect(myRover.currentDirection).toEqual("N");
     expect(myRover.currentPosition).toEqual([2, 2]);
   });
@@ -42,7 +42,7 @@ describe("Rover functions test", () => {
   });
   it("get currect position", () => {
     const myRover: Rover = createEmptyRover();
-    setRoverPosition([2, 2] as Position, "N", myRover);
+    setRoverPositionOnPlateau([2, 2] as Position, "N", myRover);
     expect(getCurrentRoverPosition(myRover)).toEqual([2, 2]);
   });
 });
@@ -59,9 +59,9 @@ describe("Move Rover from instruction set", () => {
       topRightCorner: [5, 5],
       occupied: [],
     };
-    setRoverPosition(myPosition, myDir, myRover);
     setRoverPlateau(myPlateau, myRover);
-    //myRover.plateau = myPlateau;
+    setRoverPositionOnPlateau(myPosition, myDir, myRover);
+
     //Act
     const finalPos: string = moveRover(myInstruction, myRover);
     //Assert

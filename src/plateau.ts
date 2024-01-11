@@ -5,12 +5,18 @@ import { Direction, Plateau, Position } from "./types";
 //plateau has a max tuple (maxX,maxY) based on user input
 
 export function createEmptyPlateau(coordinates: Position): Plateau {
-  const myPlateau: Plateau = {
-    topRightCorner: coordinates,
-    bottomLeftCorner: [0, 0], //set to 0,0 by default
-    occupied: [],
-  };
-  return myPlateau;
+  //assert here that plateau cant be [0,0]
+  if (coordinates[0] > 0 && coordinates[1] > 0) {
+    const myPlateau: Plateau = {
+      topRightCorner: coordinates,
+      bottomLeftCorner: [0, 0], //set to 0,0 by default
+      occupied: [],
+    };
+    return myPlateau;
+  } else {
+    console.log("here");
+    throw new Error("Plateau coordinates have to be positive");
+  }
 }
 
 export function addPlateauOccupiedPosition(

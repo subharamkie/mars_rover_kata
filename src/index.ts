@@ -65,7 +65,7 @@ function parseRoverInput(input: string): void {
       isDirection(inputSplit[2]) &&
       checkPlateauBoundary(position, roverPlateau, inputSplit[2])
     ) {
-      RoverObj.setRoverPosition(position, inputSplit[2], myRover);
+      RoverObj.setRoverPositionOnPlateau(position, inputSplit[2], myRover);
       RoverObj.setRoverPlateau(roverPlateau, myRover);
 
       askQuestion(
